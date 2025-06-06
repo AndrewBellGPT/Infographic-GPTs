@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Marketing Agents Guide</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 2em;
+  background: #f5f7fa;
+  color: #333;
+}
+h1 {
+  text-align: center;
+}
+details {
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: .5em;
+  background: #fff;
+}
+summary {
+  font-weight: bold;
+  cursor: pointer;
+}
+pre {
+  white-space: pre-wrap;
+  background: #f0f0f0;
+  padding: 1em;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+</style>
+</head>
+<body>
+<h1>Marketing Agents Guide</h1>
+<p>Click a role below to load the full 8,000-character prompt for each marketing agent. Content loads on demand.</p>
+<div id="agents"></div>
+<script>
+const roles = [
+  "chief marketing officer",
+  "marketing director",
+  "marketing manager",
+  "brand manager",
+  "product marketing manager",
+  "digital marketing manager",
+  "content marketing manager",
+  "social media manager",
+  "seo specialist",
+  "sem specialist",
+  "email marketing manager",
+  "marketing analyst",
+  "marketing coordinator",
+  "marketing assistant",
+  "market research analyst",
+  "public relations manager",
+  "communications manager",
+  "event coordinator",
+  "creative director",
+  "copywriter",
+  "graphic designer",
+  "web designer",
+  "marketing operations manager",
+  "marketing automation specialist",
+  "growth hacker",
+  "crm manager",
+  "demand generation manager",
+  "lead generation specialist",
+  "advertising manager",
+  "media buyer",
+  "marketing strategist",
+  "influencer marketing specialist",
+  "affiliate marketing manager",
+  "field marketing manager",
+  "channel marketing manager",
+  "partner marketing manager",
+  "business development manager",
+  "marketing project manager",
+  "telemarketing representative",
+  "sales enablement specialist",
+  "marketing data scientist",
+  "marketing consultant",
+  "marketing technologist",
+  "community manager",
+  "sponsorship manager",
+  "ecommerce manager",
+  "brand ambassador",
+  "creative producer",
+  "content strategist",
+  "ux designer"
+];
+const container = document.getElementById('agents');
+roles.forEach((role, idx) => {
+  const details = document.createElement('details');
+  const summary = document.createElement('summary');
+  summary.textContent = `Agent ${idx+1}: ${role}`;
+  details.appendChild(summary);
+  const pre = document.createElement('pre');
+  pre.textContent = 'Loading...';
+  details.appendChild(pre);
+  details.addEventListener('toggle', () => {
+    if (details.open && pre.textContent === 'Loading...') {
+      fetch(`marketing_agents/agent${String(idx+1).padStart(2,'0')}.md`)
+        .then(res => res.text())
+        .then(text => pre.textContent = text)
+        .catch(() => pre.textContent = 'Failed to load prompt.');
+    }
+  });
+  container.appendChild(details);
+});
+</script>
+</body>
+</html>
