@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Patent #12,141,529 Visual Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --amazon-orange: #FF9900;
+            --amazon-blue: #146EB4;
+            --amazon-dark: #232F3E;
+        }
+        
+        .amazon-gradient {
+            background: linear-gradient(135deg, var(--amazon-dark) 0%, #37475A 100%);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .tab-active {
+            color: var(--amazon-orange);
+            border-bottom: 3px solid var(--amazon-orange);
+        }
+        
+        .quote-bg {
+            background-color: rgba(255, 153, 0, 0.1);
+            border-left: 4px solid var(--amazon-orange);
+        }
+        
+        /* For dark mode */
+        .dark .quote-bg {
+            background-color: rgba(255, 153, 0, 0.05);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body class="font-[Inter] bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <!-- Dark mode toggle -->
+    <div class="absolute top-4 right-4 z-50">
+        <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:block"></i>
+        </button>
+    </div>
+
+    <!-- Innovative Hero Section -->
+    <section class="relative h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white">
+        <!-- Animated background elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div id="particles" class="absolute inset-0 opacity-20"></div>
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-yellow-500/10 to-transparent"></div>
+            <div class="absolute left-20 top-20 w-64 h-64 rounded-full bg-blue-600/30 blur-3xl"></div>
+            <div class="absolute right-20 bottom-40 w-80 h-80 rounded-full bg-purple-600/30 blur-3xl"></div>
+        </div>
+        
+        <!-- Interactive question-answer visualization -->
+        <div class="container relative mx-auto px-4 h-full flex flex-col items-center justify-center">
+            <div class="mb-12 text-center">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">When Alexa Meets Rufus</span>
+                </h1>
+                <h2 class="text-xl md:text-2xl lg:text-3xl font-light mb-3 text-gray-200">Amazon Patent #12,141,529 Reveals the Future of AI Shopping</h2>
+                <p class="text-base md:text-lg text-gray-300/80 max-w-3xl mx-auto mb-8">
+                    How Amazon's breakthrough patent merges Alexa's voice capabilities with Rufus's product intelligence
+                </p>
+            </div>
+            
+            <!-- Interactive demonstration -->
+            <div class="w-full max-w-3xl mb-12 perspective-800">
+                <div id="questionAnswerDemo" class="relative bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 shadow-2xl transform transition-all duration-700">
+                    <!-- Question input -->
+                    <div class="flex items-center mb-8">
+                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div id="questionBubble" class="bg-blue-600/30 rounded-lg p-4 transform transition-all duration-500">
+                                <p id="questionText" class="text-white text-lg font-medium">How long are pocket knives?</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Processing visualization -->
+                    <div id="processingSteps" class="mb-8 overflow-hidden">
+                        <div class="flex justify-between items-center py-3 px-1 transition-all duration-500 transform" id="step1">
+                            <div class="flex-1 px-4 text-sm text-blue-200">Named Entity Recognition</div>
+                            <div class="px-4 py-2 bg-blue-800/40 rounded-lg min-w-[120px] text-center">
+                                <span class="text-blue-200 text-sm font-mono">[pocket knives]</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center py-3 px-1 opacity-0 transition-all duration-500 transform translate-y-4" id="step2">
+                            <div class="flex-1 px-4 text-sm text-green-200">Retrieving Products</div>
+                            <div class="px-4 py-2 bg-green-800/40 rounded-lg min-w-[120px] text-center">
+                                <span class="text-green-200 text-sm font-mono">13 items found</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center py-3 px-1 opacity-0 transition-all duration-500 transform translate-y-4" id="step3">
+                            <div class="flex-1 px-4 text-sm text-purple-200">Predicting Attribute</div>
+                            <div class="px-4 py-2 bg-purple-800/40 rounded-lg min-w-[120px] text-center">
+                                <span class="text-purple-200 text-sm font-mono">length (0.92)</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center py-3 px-1 opacity-0 transition-all duration-500 transform translate-y-4" id="step4">
+                            <div class="flex-1 px-4 text-sm text-yellow-200">Normalizing Values</div>
+                            <div class="px-4 py-2 bg-yellow-800/40 rounded-lg min-w-[120px] text-center">
+                                <span class="text-yellow-200 text-sm font-mono">2.5" - 4.1"</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Answer output -->
+                    <div class="flex items-center opacity-0 transition-all duration-500" id="answerContainer">
+                        <div class="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center mr-4 shadow-lg">
+                            <i class="fas fa-robot text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="bg-gradient-to-r from-amber-500/30 to-amber-600/30 rounded-lg p-4">
+                                <p id="answerText" class="text-white"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation links -->
+            <div class="mt-4 flex flex-wrap justify-center gap-4">
+                <a href="#contributions" class="py-3 px-6 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-lg transition-all duration-300 flex items-center">
+                    <i class="fas fa-lightbulb mr-2"></i>
+                    <span>Key Contributions</span>
+                </a>
+                <a href="#ecommerce" class="py-3 px-6 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-lg transition-all duration-300 flex items-center">
+                    <i class="fas fa-shopping-cart mr-2"></i>
+                    <span>eCommerce Impact</span>
+                </a>
+                <a href="#sellers" class="py-3 px-6 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-lg transition-all duration-300 flex items-center">
+                    <i class="fas fa-tags mr-2"></i>
+                    <span>Seller Strategies</span>
+                </a>
+            </div>
+            
+            <div class="mt-6 flex justify-center">
+                <span class="px-4 py-2 rounded-full bg-white/10 text-sm flex items-center backdrop-blur-sm">
+                    <span class="h-2 w-2 rounded-full bg-green-400 animate-pulse mr-2"></span>
+                    Patent issued: November 12, 2024
+                </span>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down fa-2x text-white/70"></i>
+        </div>
+    </section>
+
+    <!-- Tabs Navigation -->
+    <div class="sticky top-0 z-40 bg-white dark:bg-gray-800 shadow-md">
+        <div class="container mx-auto">
+            <div class="flex overflow-x-auto whitespace-nowrap scrollbar-hide">
+                <button id="tab1" class="tab tab-active py-4 px-6 flex-shrink-0 font-medium">
+                    <i class="fas fa-lightbulb mr-2"></i>10 Key Contributions
+                </button>
+                <button id="tab2" class="tab py-4 px-6 flex-shrink-0 font-medium">
+                    <i class="fas fa-shopping-cart mr-2"></i>10 eCommerce Applications
+                </button>
+                <button id="tab3" class="tab py-4 px-6 flex-shrink-0 font-medium">
+                    <i class="fas fa-tags mr-2"></i>10 Seller Implications
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-10">
+        <!-- New top section: The next evolution -->
+        <section class="mb-16">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl overflow-hidden shadow-xl mb-10">
+                <div class="px-6 py-12 text-white">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">The Next Evolution in E-commerce</h2>
+                    <h3 class="text-xl md:text-2xl font-light mb-6">How Amazon's AI Patent Merges Alexa with Advanced Product Intelligence</h3>
+                    <p class="text-lg mb-6 max-w-3xl">
+                        Amazon's recently granted Patent US 12141529 offers a fascinating glimpse into the technological framework that likely underpins the integration of Alexa's voice capabilities with Rufus's product intelligence.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
+                            <i class="fas fa-microphone text-white mr-2"></i>
+                            <span class="text-white/90">Alexa Voice Technology</span>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
+                            <i class="fas fa-robot text-white mr-2"></i>
+                            <span class="text-white/90">Rufus Product Intelligence</span>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
+                            <i class="fas fa-shopping-cart text-white mr-2"></i>
+                            <span class="text-white/90">Unified Shopping Experience</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quote-bg p-6 rounded-xl mb-8">
+                <p class="italic text-lg">
+                    "Users may ask more general questions. For example, instead of asking a question related to a specific entity, a user may ask a question that relates to a genus or class of entities... Existing computer-implemented natural language processing and/or understanding techniques may not be able to answer such questions since there is not a single data record identified in the question."
+                </p>
+                <p class="text-right text-sm mt-2">— US Patent #12,141,529</p>
+            </div>
+            
+            <p class="text-lg text-gray-700 dark:text-gray-300 mb-8">
+                This limitation has created a significant gap in the e-commerce shopping experience. While customers could ask specific questions like "When was Barack Obama born?" or "What are the specs of this specific iPhone model?", questions like "Do jeans shrink after washing?" or "How much power do air conditioners use?" fell into a gap that existing systems struggled to address.
+            </p>
+            
+            <p class="text-lg text-gray-700 dark:text-gray-300">
+                The patent's innovation lies in its ability to transform these broad, category-level questions into comprehensive, accurate responses by aggregating information across multiple products, analyzing attributes, and delivering natural language answers through both voice and visual interfaces.
+            </p>
+        </section>
+        <!-- How The Patent Works - Visual Summary -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center">How Amazon's Patent #12,141,529 Works</h2>
+            <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Step 1 -->
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mb-4">
+                            <i class="fas fa-question-circle text-blue-600 dark:text-blue-300 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">1. User Query Processing</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            System analyzes broad questions like "How long are pocket knives?" or "Can I put plastic dishes in a dishwasher?"
+                        </p>
+                        <div class="mt-4 bg-gray-100 dark:bg-gray-700 p-3 rounded-lg w-full">
+                            <span class="text-xs text-gray-500 dark:text-gray-400">Example Input</span>
+                            <p class="font-medium">"Do jeans shrink after washing?"</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center mb-4">
+                            <i class="fas fa-database text-green-600 dark:text-green-300 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">2. Data Collection & Analysis</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Finds relevant products, extracts their attributes, and determines which attribute answers the question
+                        </p>
+                        <div class="mt-4 bg-gray-100 dark:bg-gray-700 p-3 rounded-lg w-full">
+                            <span class="text-xs text-gray-500 dark:text-gray-400">ML Processing</span>
+                            <p class="font-medium">Jeans → <span class="text-green-600 dark:text-green-400">washability</span>, <span class="text-orange-500">shrinkage</span>, material...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-16 h-16 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center mb-4">
+                            <i class="fas fa-comment-alt text-purple-600 dark:text-purple-300 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">3. Answer Generation</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Aggregates product data and uses templates to create natural, conversational responses
+                        </p>
+                        <div class="mt-4 bg-gray-100 dark:bg-gray-700 p-3 rounded-lg w-full">
+                            <span class="text-xs text-gray-500 dark:text-gray-400">Generated Answer</span>
+                            <p class="font-medium">"Based on 32 jeans, most (87%) shrink slightly after washing"</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Flow arrows for desktop -->
+                <div class="hidden md:block">
+                    <div class="absolute top-1/2 left-[30%] transform -translate-y-1/2">
+                        <i class="fas fa-long-arrow-alt-right text-3xl text-gray-400 dark:text-gray-600"></i>
+                    </div>
+                    <div class="absolute top-1/2 left-[63%] transform -translate-y-1/2">
+                        <i class="fas fa-long-arrow-alt-right text-3xl text-gray-400 dark:text-gray-600"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Patent Diagrams Section -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center">Understanding Amazon's Patent Through Diagrams</h2>
+            
+            <!-- Patent Diagram Tabs -->
+            <div class="mb-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                <div class="border-b border-gray-200 dark:border-gray-700">
+                    <nav class="flex overflow-x-auto">
+                        <button id="diagramTab1" class="diagram-tab diagram-tab-active whitespace-nowrap px-6 py-3 font-medium text-sm">
+                            FIG. 1: Question Answering System
+                        </button>
+                        <button id="diagramTab2" class="diagram-tab whitespace-nowrap px-6 py-3 font-medium text-sm">
+                            FIG. 2-3: NLP Components
+                        </button>
+                        <button id="diagramTab3" class="diagram-tab whitespace-nowrap px-6 py-3 font-medium text-sm">
+                            FIG. 4-6: Processing & Architecture
+                        </button>
+                        <button id="diagramTab4" class="diagram-tab whitespace-nowrap px-6 py-3 font-medium text-sm">
+                            FIG. 7-8: NER & Response Templates
+                        </button>
+                    </nav>
+                </div>
+                
+                <!-- Diagram Tab Contents -->
+                <div class="p-6">
+                    <!-- Diagram Tab 1 Content -->
+                    <div id="diagramContent1" class="diagram-content">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 flex items-center justify-center">
+                                    <img src="https://pfst.cf2.poecdn.net/base/image/269aa0e6076808d8dff854c8b5582f65c5632e8b8d5813900c15444d6b2330dd?w=2576&h=1822" alt="Patent Fig. 1: Natural Language-Based Question Answering System" class="max-w-full h-auto rounded shadow-md"/>
+                                </div>
+                                <p class="text-sm text-center mt-2 text-gray-500 dark:text-gray-400">FIG. 1: Natural Language-Based Question Answering System</p>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-4">FIG. 1 — Natural Language-Based Question Answering System</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                                    FIG. 1 presents an overall diagram of the question answering system. It illustrates the flow from receiving a user's natural language input to processing that input using components such as speech recognition, natural language understanding (NLU), and named entity recognition (NER).
+                                </p>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                                    The diagram highlights how a search query is generated, key slot data is extracted, and a candidate set of content items is identified. It then shows how machine learning models determine relevance at both the content-item and attribute levels.
+                                </p>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    The system selects a predicted attribute and uses a response template to generate a natural language answer, which is further converted to audio via a text-to-speech (TTS) component.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Diagram Tab 2 Content -->
+                    <div id="diagramContent2" class="diagram-content hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <div class="mb-8">
+                                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 flex items-center justify-center">
+                                        <img src="https://pfst.cf2.poecdn.net/base/image/defcf909941c183f69ed99b133d45c595721d09bfe1c58b1d9251463740b37c0?w=2076&h=1634" alt="Patent Fig. 2: Components of a Natural Language Processing System" class="max-w-full h-auto rounded shadow-md"/>
+                                    </div>
+                                    <p class="text-sm text-center mt-2 text-gray-500 dark:text-gray-400">FIG. 2: Components of a Natural Language Processing System</p>
+                                </div>
+                                <div>
+                                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 flex items-center justify-center">
+                                        <img src="https://pfst.cf2.poecdn.net/base/image/07db990614ac057f2a808c96eef54efb6b124ff066e1c36bb6459a13c59c917c?w=2408&h=1852" alt="Patent Fig. 3: Machine Learning Architecture for Attribute Prediction" class="max-w-full h-auto rounded shadow-md"/>
+                                    </div>
+                                    <p class="text-sm text-center mt-2 text-gray-500 dark:text-gray-400">FIG. 3: Machine Learning Architecture for Attribute Prediction</p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mb-6">
+                                    <h3 class="text-xl font-semibold mb-3">FIG. 2 — Components of NLP System</h3>
+                                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                                        FIG. 2 is a block diagram detailing the internal components that make up the natural language processing system. The illustration maps out the various modules—including input devices, audio capture, automatic speech recognition (ASR), NLU, and the orchestrator—that work in tandem to process natural language queries.
+                                    </p>
+                                    <p class="text-gray-600 dark:text-gray-400">
+                                        It emphasizes the modular architecture where each component plays a distinct role in the overall system, showing the communication paths between components like the skill modules and the text-to-speech engine.
+                                    </p>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold mb-3">FIG. 3 — Machine Learning Architecture</h3>
+                                    <p class="text-gray-600 dark:text-gray-400">
+                                        FIG. 3 depicts a machine learning architecture specifically designed to predict relevant content attributes based on natural language inputs. The figure shows how a database of content items—each with structured attributes—is utilized by a question-to-answer model to generate candidate answers for each attribute and then score these candidates using relevance metrics.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Diagram Tab 3 Content -->
+                    <div id="diagramContent3" class="diagram-content hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <div class="mb-6">
+                                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 flex items-center justify-center">
+                                        <img src="https://pfst.cf2.poecdn.net/base/image/05a2bc1b97246bceb85378a99852114eaf83f08fcb6b5b848bd7962da9b5e3b0?w=1278&h=1690" alt="Patent Fig. 4: Process Flow for Answering Natural Language Questions" class="max-w-full h-auto rounded shadow-md"/>
+                                    </div>
+                                    <p class="text-sm text-center mt-2 text-gray-500 dark:text-gray-400">FIG. 4: Process Flow for Answering Natural Language Questions</p>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 flex items-center justify-center">
+                                        <img src="https://pfst.cf2.poecdn.net/base/image/f1b4c72f2e7d4bf1aa482dcd48c9ec3bb9e93332cc8dcd5cedbbf0483f14d89c?w=1670&h=1280" alt="Patent Fig. 5: Computing Device Architecture" class="max-w-full h-auto rounded shadow-md"/>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">FIG. 5: Computing Device Architecture</p>
+                                    </div>
+                                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 flex items-center justify-center">
+                                        <img src="https://pfst.cf2.poecdn.net/base/image/a9a7928fe07362471f0ed6c154830f9fc313fac8686c5332f39ae5b28bfd7f45?w=2286&h=1660" alt="Patent Fig. 6: Data Center Infrastructure" class="max-w-full h-auto rounded shadow-md"/>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">FIG. 6: Data Center Infrastructure</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mb-6">
+                                    <h3 class="text-xl font-semibold mb-3">FIG. 4 — Process Flow</h3>
+                                    <p class="text-gray-600 dark:text-gray-400">
+                                        FIG. 4 is a flowchart that breaks down the step-by-step process for answering natural language-based questions. The diagram begins with the reception of a natural language query and follows through with the extraction of slot data, retrieval of candidate content items, and subsequent filtering using machine learning models. It details how the system predicts the relevant attribute, normalizes attribute values, selects a response template, and finally generates a natural language answer.
+                                    </p>
+                                </div>
+                                <div class="mb-6">
+                                    <h3 class="text-xl font-semibold mb-3">FIG. 5-6 — System Architecture</h3>
+                                    <p class="text-gray-600 dark:text-gray-400">
+                                        FIG. 5 provides a block diagram of a computing device that can host various components of the natural language processing system, outlining the primary hardware elements including processing units, memory/storage, and input/output interfaces.
+                                    </p>
+                                    <p class="text-gray-600 dark:text-gray-400">
+                                        FIG. 6 illustrates the data center environment that supports the patent's techniques, with network infrastructure where user devices interact with a centralized data center that houses servers, storage resources, and load balancing components.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Diagram Tab 4 Content -->
+                    <div id="diagramContent4" class="diagram-content hidden">
+                        <!-- Fig. 7 Named Entity Recognition -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                            <div>
+                                <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 flex items-center justify-center">
+                                    <img src="https://pfst.cf2.poecdn.net/base/image/911a36e11f9496fcf891247bd1c4a7521ad3414553f74f4c2b08aa8f36e8b11e?w=2236&h=1682" alt="Patent Fig. 7: Named Entity Recognition Processing" class="max-w-full h-auto rounded shadow-md"/>
+                                </div>
+                                <p class="text-sm text-center mt-2 text-gray-500 dark:text-gray-400">FIG. 7: Named Entity Recognition Processing</p>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-3">FIG. 7 — Named Entity Recognition</h3>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    FIG. 7 presents a conceptual diagram focused on the named entity recognition (NER) process. The figure outlines how the system parses natural language input to identify key entities by applying grammatical rules and leveraging personalized lexicons. It visually represents the stages where text data is analyzed, entities are tagged, and slot data is extracted for further processing. The diagram highlights the connection between the Natural Language component (260), various skills, and the use of both Grammar and Intent processing to properly identify entities in customer queries.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Fig. 8A-C Response Templates -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <div class="grid grid-cols-1 gap-6">
+                                    <div>
+                                        <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 flex items-center justify-center">
+                                            <img src="https://pfst.cf2.poecdn.net/base/image/4c3a4cdae5c8d799c6ba0410bec28872564d10ef55032493269ba4bfb12318cd?w=2282&h=1664" alt="Patent Fig. 8A: Yes/No Response Template" class="max-w-full h-auto rounded shadow-md"/>
+                                        </div>
+                                        <p class="text-sm text-center mt-2 text-gray-500 dark:text-gray-400">FIG. 8A: Yes/No Response Template</p>
+                                    </div>
+                                    <div>
+                                        <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 flex items-center justify-center">
+                                            <img src="https://pfst.cf2.poecdn.net/base/image/f25aac2b79431be4b4232db6ed184fc59d7c8d309386f311cf6bc1a89799ab20?w=2312&h=1720" alt="Patent Fig. 8B: Categorical Response Template" class="max-w-full h-auto rounded shadow-md"/>
+                                        </div>
+                                        <p class="text-sm text-center mt-2 text-gray-500 dark:text-gray-400">FIG. 8B: Categorical Response Template</p>
+                                    </div>
+                                    <div>
+                                        <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 flex items-center justify-center">
+                                            <img src="https://pfst.cf2.poecdn.net/base/image/88e124b512da102eb40810e4c1627f248efb0cf0057cc5864020dba78381b365?w=2282&h=1732" alt="Patent Fig. 8C: Numerical Response Template" class="max-w-full h-auto rounded shadow-md"/>
+                                        </div>
+                                        <p class="text-sm text-center mt-2 text-gray-500 dark:text-gray-400">FIG. 8C: Numerical Response Template</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-3">FIG. 8A-C — Response Templates</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                                    FIG. 8A illustrates a yes/no response template used to answer questions like "Can I put plastic dishes in a dishwasher?" The system aggregates responses from multiple products to provide an answer with interactive elements. The template shows both the visual representation and underlying data structure needed to present clear yes/no responses to users.
+                                </p>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                                    FIG. 8B shows a categorical response template for queries that require listing discrete product attributes, such as color options for a specific brand of paint. This template organizes multiple options in a user-friendly format for questions that need to present several possible values.
+                                </p>
+                                <p class="text-gray-600 dark:text-gray-400">
+                                    FIG. 8C displays a numerical response template for queries about quantitative attributes, providing a range of values (e.g., 600-900 watts for RV microwaves) derived from multiple products. This template presents numerical ranges and averages in a structured format, making it easy for users to understand the typical values for a given attribute across multiple products.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Alexa/Rufus Integration Section -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center">Discovering Rufus and Alexa Through the Patent</h2>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Left column: Alexa -->
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-800 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-microphone text-blue-600 dark:text-blue-300 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-blue-700 dark:text-blue-300">Voice Assistant Foundation (Alexa)</h3>
+                        </div>
+                        <div class="quote-bg p-4 rounded text-sm mb-4">
+                            <p class="italic mb-2">
+                                "Wakeword detection is typically performed without performing linguistic analysis, textual analysis, or semantic analysis. Instead, the audio data representing the audio 11 may be analyzed to determine if specific characteristics of the audio data match preconfigured acoustic waveforms, audio signatures, or other data..."
+                            </p>
+                            <p class="italic">
+                                "An example wakeword is 'Alexa,' 'Computer,' etc."
+                            </p>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            The patent explicitly describes the voice processing architecture that's foundational to Alexa, including the wakeword activation system and the skills-based architecture:
+                        </p>
+                        <div class="quote-bg p-4 rounded text-sm">
+                            <p class="italic">
+                                "A 'skill' or 'skill component' may be software running on the natural language processing system 220 that is akin to a software application running on a traditional computing device."
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Right column: Rufus -->
+                    <div class="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-purple-100 dark:bg-purple-800 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-robot text-purple-600 dark:text-purple-300 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-purple-700 dark:text-purple-300">Product Knowledge System (Rufus)</h3>
+                        </div>
+                        <div class="quote-bg p-4 rounded text-sm mb-4">
+                            <p class="italic">
+                                "Described herein are various systems and techniques that may be used to enable computing device(s) to provide responsive answers to such 'broad' questions. Current natural language processing systems are unable to provide satisfactory responses to such broad, non-specific questions in many instances."
+                            </p>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            The patent then describes capabilities that align perfectly with Rufus's specialized product knowledge functions:
+                        </p>
+                        <div class="quote-bg p-4 rounded text-sm mb-4">
+                            <p class="italic">
+                                "Each content item 116 may have a set of attributes with each attribute, in turn, being associated with an attribute value. For example, if a given content item is a mobile phone, its attributes may include color, operating system, memory size, processor type, storage capacity, etc."
+                            </p>
+                        </div>
+                        <div class="quote-bg p-4 rounded text-sm">
+                            <p class="italic">
+                                "For example, for the user question 'how long is a pocket knife?', a response template may be used to output: Answer: Based on 13 pocket knife items, the blade length range is between 2.5 and 4.1 inches..."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Integration Architecture -->
+                <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <h3 class="text-xl font-semibold mb-4 text-center">The Integration Architecture</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-800 dark:to-purple-800 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-sitemap text-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-300 dark:to-purple-300"></i>
+                                </div>
+                                <h4 class="font-semibold">Unified NLP Pipeline</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                "The orchestrator component 230 may include memory and logic that enable the orchestrator component 230 to transmit various pieces and forms of data to various components of the system, as well as perform other operations."
+                            </p>
+                        </div>
+                        <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-800 dark:to-purple-800 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-exchange-alt text-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-300 dark:to-purple-300"></i>
+                                </div>
+                                <h4 class="font-semibold">Cross-Component Communication</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                "The NLU component 260 outputs NLU results to the orchestrator component 230... The orchestrator component 230 may send the NLU results to an associated skill 290."
+                            </p>
+                        </div>
+                        <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-800 dark:to-purple-800 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-desktop text-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-300 dark:to-purple-300"></i>
+                                </div>
+                                <h4 class="font-semibold">Multi-Modal Output</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                "In various examples, answers may be provided using a voice interface (e.g., via TTS 280) and/or via a graphical user interface (GUI)."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Resulting Experience -->
+                <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <h3 class="text-xl font-semibold mb-4 text-center">The Resulting Integrated Experience</h3>
+                    <div class="bg-amber-50 dark:bg-amber-900/10 p-5 rounded-lg">
+                        <p class="text-gray-700 dark:text-gray-300">
+                            This patent describes a system that enables a comprehensive AI shopping assistant experience by combining:
+                        </p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 h-6 w-6 rounded-full bg-amber-100 dark:bg-amber-800 flex items-center justify-center mr-3 mt-0.5">
+                                    <span class="text-amber-600 dark:text-amber-300 text-xs font-bold">1</span>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-400">Voice-activated product queries through Alexa's voice processing</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 h-6 w-6 rounded-full bg-amber-100 dark:bg-amber-800 flex items-center justify-center mr-3 mt-0.5">
+                                    <span class="text-amber-600 dark:text-amber-300 text-xs font-bold">2</span>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-400">Deep product knowledge responses powered by Rufus capabilities</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 h-6 w-6 rounded-full bg-amber-100 dark:bg-amber-800 flex items-center justify-center mr-3 mt-0.5">
+                                    <span class="text-amber-600 dark:text-amber-300 text-xs font-bold">3</span>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-400">Seamless handling of both specific and broad product questions</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 h-6 w-6 rounded-full bg-amber-100 dark:bg-amber-800 flex items-center justify-center mr-3 mt-0.5">
+                                    <span class="text-amber-600 dark:text-amber-300 text-xs font-bold">4</span>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-400">Delivery of answers through both voice and visual interfaces</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 h-6 w-6 rounded-full bg-amber-100 dark:bg-amber-800 flex items-center justify-center mr-3 mt-0.5">
+                                    <span class="text-amber-600 dark:text-amber-300 text-xs font-bold">5</span>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-400">Personalized responses based on user profiles and interaction history</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Patent Contributions Section -->
+        <section id="contributions" class="tab-content mb-16">
+            <h2 class="text-3xl font-bold mb-8">10 Key Technical Contributions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Contribution 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 card-hover">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 bg-blue-100 dark:bg-blue-900 rounded-full p-3 mr-4">
+                            <i class="fas fa-globe text-blue-600 dark:text-blue-300"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Enabling Answers to Broad Category Questions</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">Addresses questions about general classes of items that traditional QA systems struggled with</p>
+                            <div class="quote-bg p-3 rounded text-sm">
+                                <p class="italic">"Existing computer-implemented natural language processing... techniques may not be able to answer such questions since there is not a single data record identified in the question... It may be non-trivial... to aggregate different information from different entities that may be relevant."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contribution 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 card-hover">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 bg-green-100 dark:bg-green-900 rounded-full p-3 mr-4">
+                            <i class="fas fa-wrench text-green-600 dark:text-green-300"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Technical Improvement for General Question Answering</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">Novel NLP framework that improves how computers handle broad, class-level questions</p>
+                            <div class="quote-bg p-3 rounded text-sm">
+                                <p class="italic">"Accordingly, the various techniques described herein constitute technical improvements to computer-implemented natural language processing systems that enable such systems to generate appropriate responses to general questions that may not relate to specific entities..."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Contribution 3 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 card-hover">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 bg-purple-100 dark:bg-purple-900 rounded-full p-3 mr-4">
+                            <i class="fas fa-search text-purple-600 dark:text-purple-300"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Multi-Stage Retrieval of Relevant Objects</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">Uses the detected topic to retrieve a set of relevant content items via an internal search</p>
+                            <div class="quote-bg p-3 rounded text-sm">
+                                <p class="italic">"The extracted slot data may be used to determine a set of content items... This search query may be executed as a backend process using a search engine without outputting results... to the user... The search engine may retrieve the results... that are deemed to be most relevant to the extracted slot data."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contribution 4 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 card-hover">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 bg-red-100 dark:bg-red-900 rounded-full p-3 mr-4">
+                            <i class="fas fa-filter text-red-600 dark:text-red-300"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Semantic Relevance Filtering with Machine Learning</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">Machine learning model filters retrieved items by semantic relevance to the query's topic</p>
+                            <div class="quote-bg p-3 rounded text-sm">
+                                <p class="italic">"Data representing the content items... may be featurized... and input into a relevance filtering model. The relevance filtering model... may be a machine learning model trained to determine whether or not a given content item... is semantically relevant to the extracted slot data..."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contribution 5 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 card-hover">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 bg-yellow-100 dark:bg-yellow-900 rounded-full p-3 mr-4">
+                            <i class="fas fa-database text-yellow-600 dark:text-yellow-300"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Modeling Items by Attributes for QA</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">Treats each content item as a collection of attributes as the basis for answering questions</p>
+                            <div class="quote-bg p-3 rounded text-sm">
+                                <p class="italic">"Each content item may have a set of attributes with each attribute, in turn, being associated with an attribute value. For example, if a given content item is a mobile phone, its attributes may include color, operating system, memory size..."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contribution 6 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 card-hover">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 bg-indigo-100 dark:bg-indigo-900 rounded-full p-3 mr-4">
+                            <i class="fas fa-brain text-indigo-600 dark:text-indigo-300"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Question-to-Answer Model for Attribute Relevance</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">ML model analyzes the user's question to predict which attribute the question is targeting</p>
+                            <div class="quote-bg p-3 rounded text-sm">
+                                <p class="italic">"For each content item, the question-to-answer machine learning model may generate a prediction score for each attribute based on the relevance of that attribute to the search query. For example, the search query may be 'How long are pocket knives.'"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Contribution 7 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 card-hover">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 bg-pink-100 dark:bg-pink-900 rounded-full p-3 mr-4">
+                            <i class="fas fa-chart-bar text-pink-600 dark:text-pink-300"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Selecting the Most Relevant Attribute via Aggregation</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">Methods to choose the best attribute to answer the question by evaluating relevance across multiple items</p>
+                            <div class="quote-bg p-3 rounded text-sm">
+                                <p class="italic">"The question-to-answer machine learning model may be used to determine a predicted attribute... using a variety of techniques. In one example, the highest relevance score from among all attributes, for all content items may be selected..."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contribution 8 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 card-hover">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 bg-teal-100 dark:bg-teal-900 rounded-full p-3 mr-4">
+                            <i class="fas fa-sort-numeric-up text-teal-600 dark:text-teal-300"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Data Aggregation and Normalization for Answers</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">Collects values from all relevant items and normalizes/aggregates them to form a concise answer</p>
+                            <div class="quote-bg p-3 rounded text-sm">
+                                <p class="italic">"Normalization may include standardizing units... so that attribute values are of the same dimensions. For example, some attribute values for the attribute length may be in centimeters while other attribute values may be in inches..."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contribution 9 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 card-hover">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 bg-orange-100 dark:bg-orange-900 rounded-full p-3 mr-4">
+                            <i class="fas fa-comment-alt text-orange-600 dark:text-orange-300"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Dynamic Natural Language Template Generation</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">Template-based NLG system that creates natural, conversational answers using the aggregated data</p>
+                            <div class="quote-bg p-3 rounded text-sm">
+                                <p class="italic">"Some templates may be for numerical answers (e.g., providing a range of the relevant attribute values and/or an average of the values). Some templates may be for yes/no questions to provide a natural response..."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contribution 10 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 card-hover">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 bg-gray-100 dark:bg-gray-700 rounded-full p-3 mr-4">
+                            <i class="fas fa-tasks text-gray-600 dark:text-gray-300"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Handling Multiple Question Types in a Unified System</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">System capable of answering yes/no questions, numeric inquiries, and categorical questions in one framework</p>
+                            <div class="quote-bg p-3 rounded text-sm">
+                                <p class="italic">"The various natural language-based question answering systems and techniques described herein are effective to answer multiple types of questions, such as yes/no questions, numeric questions, and categorical questions, in a dynamic way."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- eCommerce Applications Section -->
+        <section id="ecommerce" class="tab-content mb-16 hidden">
+            <h2 class="text-3xl font-bold mb-8">10 eCommerce Search & Product Discovery Applications</h2>
+            <!-- Content omitted for brevity -->
+        </section>
+
+        <!-- Seller Implications Section -->
+        <section id="sellers" class="tab-content mb-16 hidden">
+            <h2 class="text-3xl font-bold mb-8">10 Key Implications for Amazon Sellers</h2>
+            <!-- Content omitted for brevity -->
+        </section>
+    </main>
+
+    <footer class="amazon-gradient text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>Created for demonstration purposes.</p>
+        </div>
+    </footer>
+</body>
+</html>
